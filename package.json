@@ -1,7 +1,7 @@
 {
-  "name": "npm-package-starter",
+  "name": "apis-sdk",
   "version": "0.1.0",
-  "description": "A boilerplate to help you get started creating a npm package.",
+  "description": "APIS SDK",
   "main": "lib/index.js",
   "scripts": {
     "clean": "rimraf lib",
@@ -9,7 +9,7 @@
     "prepare": "npm run clean && npm run build",
     "test": "jest"
   },
-  "author": "Gabriel Vergnaud <github.com/gvergnaud>",
+  "author": "Shain Lafazan, APIS Foundation <https://github.com/The-APIS>",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.26.3",
@@ -30,5 +30,8 @@
     "rollup-plugin-commonjs": "^8.2.6",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-uglify": "^3.0.0"
+  },
+  "jest": {
+    "testURL": "http://localhost"
   }
 }
