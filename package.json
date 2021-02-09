@@ -1,5 +1,5 @@
 {
-  "name": "apis-sdk",
+  "name": "@theapis/sdk",
   "version": "0.1.0",
   "description": "APIS SDK",
   "main": "lib/index.js",
