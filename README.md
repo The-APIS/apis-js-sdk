@@ -5,5 +5,5 @@ APIS JavaScript SDK
 ## Getting Started
 
 ```
-npm i --save apis-sdk
+npm i --save @theapis/sdk
 ```
