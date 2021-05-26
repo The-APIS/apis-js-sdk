@@ -1,5 +1,5 @@
 {
-  "name": "@apis/sdk",
+  "name": "@theapis/sdk",
   "version": "1.0.0",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -28,8 +28,7 @@
     "test": "jest --config jest.config.js",
     "test:watch": "npm run test -- --watch",
     "test:coverage": "npm run test -- --coverage",
-    "clean": "rimraf dist coverage",
-    "prepare": "npm-run-all clean lint test build"
+    "clean": "rimraf dist coverage"
   },
   "files": [
     "dist"
