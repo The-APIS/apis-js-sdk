@@ -1,37 +1,37 @@
 {
-  "name": "@theapis/sdk",
-  "version": "0.1.1",
-  "description": "APIS SDK",
-  "main": "lib/index.js",
-  "scripts": {
-    "clean": "rimraf lib",
-    "build": "npm run clean && BABEL_ENV=production rollup --config rollup.config.js",
-    "prepare": "npm run clean && npm run build",
-    "test": "jest"
+  "name": "@apis/sdk",
+  "version": "1.0.0",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "browser": "dist/index.umd.js",
+  "dependencies": {
+    "@babel/runtime": "^7.14.0",
+    "loglevel": "~1.7.1",
+    "web3": "~1.3.6"
   },
-  "author": "Shain Lafazan, APIS Foundation <https://github.com/The-APIS>",
-  "license": "ISC",
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-eslint": "^8.2.2",
-    "babel-jest": "^22.4.1",
-    "babel-plugin-external-helpers": "^6.22.0",
-    "babel-plugin-transform-es2017-object-entries": "0.0.5",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "eslint": "^4.18.2",
-    "eslint-plugin-babel": "^4.1.2",
-    "eslint-plugin-prettier": "^2.6.0",
-    "jest": "^22.4.2",
-    "prettier": "^1.12.1",
-    "rimraf": "^2.6.2",
-    "rollup": "^0.51.7",
-    "rollup-plugin-babel": "^3.0.2",
-    "rollup-plugin-commonjs": "^8.2.6",
-    "rollup-plugin-node-resolve": "^3.0.0",
-    "rollup-plugin-uglify": "^3.0.0"
+    "@babel/core": "^7.14.3",
+    "@babel/plugin-transform-runtime": "^7.14.3",
+    "@babel/preset-env": "^7.14.2",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-commonjs": "^11.0.1",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^7.0.0",
+    "jest": "^27.0.1",
+    "rollup": "^1.29.0"
   },
-  "jest": {
-    "testURL": "http://localhost"
-  }
+  "scripts": {
+    "build": "rollup -c ./rollup.config.js",
+    "dev": "rollup -c ./rollup.config.js -w",
+    "pretest": "npm run build",
+    "lint": "eslint src/**/*.js",
+    "test": "jest --config jest.config.js",
+    "test:watch": "npm run test -- --watch",
+    "test:coverage": "npm run test -- --coverage",
+    "clean": "rimraf dist coverage",
+    "prepare": "npm-run-all clean lint test build"
+  },
+  "files": [
+    "dist"
+  ]
 }

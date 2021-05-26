@@ -1,29 +1,29 @@
-import babel from 'rollup-plugin-babel'
-import nodeResolve from 'rollup-plugin-node-resolve'
-import commonjs from 'rollup-plugin-commonjs'
-import uglify from 'rollup-plugin-uglify'
+import { babel } from '@rollup/plugin-babel';
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import json from '@rollup/plugin-json';
+import pkg from './package.json';
 
-const createConfig = (input, output, additionnalPlugins = []) => ({
-  input,
-  output: {
-    file: output,
-    format: 'cjs'
-  },
-  plugins: [
-    nodeResolve({
-      jsnext: true
-    }),
-    commonjs({
-      include: 'node_modules/**'
-    }),
-    babel({
-      exclude: 'node_modules/**'
-    }),
-    ...additionnalPlugins
-  ]
-})
 
-export default [
-  createConfig('src/index.js', 'lib/index.js'),
-  createConfig('src/index.js', 'lib/index.min.js', [uglify()])
-]
+export default {
+	input: 'src/index.js',
+	// external: ['loglevel', 'web3'],
+	output: [
+		{
+			name: 'index',
+			file: pkg.browser,
+			format: 'umd'
+		},
+		{ file: pkg.main, format: 'cjs' },
+		{ file: pkg.module, format: 'es' },
+	],
+	plugins: [
+		resolve(),
+		commonjs(),
+		babel({
+			babelHelpers: process.env.NODE_END !== 'test' ? 'bundled' : 'runtime',
+			exclude: ['node_modules/**'],
+		}),
+		json(),
+	],
+}

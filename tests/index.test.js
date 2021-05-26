@@ -1,7 +1,7 @@
-import index from '../src'
+import APIS from '../src'
 
-describe('index', () => {
+describe('APIS', () => {
   it('should work', () => {
-    expect(index()).toEqual('Hello world!')
+    expect(new APIS()).toBeTruthy()
   })
 })
