@@ -5,9 +5,9 @@ import getWeb3 from "./web3/getWeb3";
 import Data from "./data.json";
 import log from 'loglevel';
 
-export default class Compound {
+export default class SDK {
 
-  async init () {
+  async init() {
     // Get network provider and web3 instance.
     this.web3 = await getWeb3();
 
@@ -24,9 +24,9 @@ export default class Compound {
     log.log("chain id is " + this.chainId);
 
     // Fetch data from json file (cERC20,cETH,comptroller) as per the newtwork id
-    this.network = Data.Addresses.find((network) => {
+    this.network = Data.Addresses.find((network => {
       return (network.id === this.networkId && network.chainId === this.chainId);
-    });
+    }));
     log.log(this.network);
     this.cERC20 = this.network.cERC20;
     this.cERC20.forEach(object => {
@@ -40,19 +40,18 @@ export default class Compound {
     this.cETH.instance = new this.web3.eth.Contract(cETHAbi, this.cETH.address);
     this.comptroller = this.network.comptroller;
     this.comptroller.instance = new this.web3.eth.Contract(comptrollerAbi, this.comptroller.address);
-
-    const markets = await this.comptroller.instance.methods.getAssetsIn(this.accounts[0]).call();
-
-    if (markets.length < 8) {
+    this.markets = await this.comptroller.instance.methods.getAssetsIn(this.accounts[0]).call();
+    if (this.markets.length < 8) {
       this.enterMarket();
       log.warn("market not fully loaded");
     }
+    return this.markets;
   }
 
   getSupportedTokens() {
     return this.cERC20;
   }
-
+  
   async enterMarket() {
     const errorCode = await this.comptroller.instance.methods.enterMarkets(this.cTokenAddresses).send({ from: this.accounts[0] });
     log.log("error code is: ");
@@ -63,27 +62,27 @@ export default class Compound {
     log.log(markets);
   };
 
-   async mintCEth(amount) {
+  async mintCEth(amount) {
 
     const errorCode = await this.cETH.instance.methods.mint().send({ from: this.accounts[0], value: amount });
     log.log("Minted result: ");
     log.log(errorCode);
   };
 
-   async mintCToken(cToken, amount) {
+  async mintCToken(cToken, amount) {
     //approve before minting
     const errorCode = await cToken.instance.methods.mint(amount).send({ from: this.accounts[0] });
     log.log("Minted result: ");
     log.log(errorCode);
   };
 
-   async redeemCEth(amount) {
-    const errorCode = await this.cETH.instance.methods.redeem(amount).send({ from: this.accounts[0] });
+  async redeemCEth(amount) {
+    const errorCode = await this.cETH.instance.methods.redeemUnderlying(amount).send({ from: this.accounts[0] });
     log.log("Redeem result: ");
     log.log(errorCode);
   };
 
-   async redeemCToken(cToken, amount) {
+  async redeemCToken(cToken, amount) {
     const errorCode = await cToken.instance.methods.redeemUnderlying(amount).send({ from: this.accounts[0] });
     log.log("Redeem result: ");
     log.log(errorCode);
@@ -96,7 +95,7 @@ export default class Compound {
     log.log(balance / 1e18);
   }
 
-   async balanceOfCToken(cToken) {
+  async balanceOfCToken(cToken) {
     const balance = await cToken.instance.methods.balanceOfUnderlying(this.accounts[0]).call();
     log.log("balance of token");
     log.log(balance / 1e18);
@@ -108,55 +107,55 @@ export default class Compound {
     log.log(rate);
   }
 
-   async supplyRateCToken(cToken) {
+  async supplyRateCToken(cToken) {
     const rate = await cToken.instance.methods.supplyRatePerBlock().call();
     log.log("supply rate of eth");
     log.log(rate);
   }
 
-   async invest(tokenName, amount) {
+  async invest(tokenName, amount) {
     if (tokenName === "ETH") {
-      await this.balanceOfCEth();
+      log.log(await this.balanceOfCEth());
       log.log("Amount for minting is " + amount);
       await this.mintCEth(amount);
-      await this.balanceOfCEth();
+      log.log(await this.balanceOfCEth());
     }
     else{
-      let token = this.cERC20.find((cERC20) => {
+      let token = this.cERC20.find((cERC20 => {
         return (cERC20.name === tokenName);
-      });
+      }));
       await this.mintCToken(token);
       await this.balanceOfCToken(token);
     }
     alert("Investment Successfull");
   }
 
-   async withdraw(tokenName, amount) {
+  async withdraw(tokenName, amount) {
     if (tokenName === "ETH") {
-      await this.balanceOfCEth();
+      log.log(await this.balanceOfCEth());
       log.log("Amount for redeeming is " + amount);
       await this.redeemCEth(amount);
       await this.balanceOfCEth();
     }
     else{
-      let token = this.cERC20.find((cERC20) => {
+      let token = this.cERC20.find((cERC20 => {
         return (cERC20.name === tokenName);
-      });
+      }));
       await this.redeemCToken(token);
       await this.balanceOfCToken(token);
     }
     alert("Withdraw Successfull");
   }
 
-   async getMaxWithdraw(tokenName) {
+  async getMaxWithdraw(tokenName) {
     if (tokenName === "ETH") {
       const maxBalance = await this.cETH.instance.methods.balanceOfUnderlying(this.accounts[0]).call();
       return maxBalance;
     }
     else{
-      let token = this.cERC20.find((cERC20) => {
+      let token = this.cERC20.find((cERC20 => {
         return (cERC20.name === tokenName);
-      });
+      }));
       const maxBalance = await token.instance.methods.balanceOfUnderlying(this.accounts[0]).call();
       return maxBalance;
     }
