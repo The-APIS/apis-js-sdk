@@ -1,11 +1,11 @@
 # The APIS SDK
 
-The official [APIS Foundation](https://dapis.io) JavaScript SDK.
+The official [APIS Foundation](https://dapis.tech) JavaScript SDK.
 
 ## TL;DR
 
 ```bash
-npm install --save @apis/sdk
+npm install --save @dapis/sdk
 ```
 
 
@@ -33,7 +33,9 @@ npm run test:watch
 ```
 
 
-## Build
+## Build 
+
+> TODO - the module is designed to be bundled with another application, or web application.
 
 `npm run build` builds the library to `dist`, generating three files:
 
@@ -48,6 +50,10 @@ npm run test:watch
 
 `npm test` builds the library, then tests it.
 
+
+## TODO
+
+[] Update the package.json files to specify depencencies as dev, regular, or peer
 
 ## License
 
