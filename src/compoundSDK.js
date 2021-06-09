@@ -147,7 +147,7 @@ export default class SDK {
     alert("Withdraw Successfull");
   }
 
-  async getMaxWithdraw(tokenName) {
+  async getBalance(tokenName) {
     if (tokenName === "ETH") {
       const maxBalance = await this.cETH.instance.methods.balanceOfUnderlying(this.accounts[0]).call();
       return maxBalance;
