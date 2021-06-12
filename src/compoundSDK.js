@@ -57,35 +57,26 @@ export default class SDK {
     log.log("error code is: ");
     log.log(errorCode);
     const markets = await this.comptroller.instance.methods.getAssetsIn(this.accounts[0]).call();
-    //this.setState({marketAccounts:markets});
     log.log("market is ");
     log.log(markets);
   };
 
-  async mintCEth(amount) {
+  mintCEth(amount) {
 
-    const errorCode = await this.cETH.instance.methods.mint().send({ from: this.accounts[0], value: amount });
-    log.log("Minted result: ");
-    log.log(errorCode);
+    return this.cETH.instance.methods.mint().send({ from: this.accounts[0], value: amount });
   };
 
-  async mintCToken(cToken, amount) {
+   mintCToken(cToken, amount) {
     //approve before minting
-    const errorCode = await cToken.instance.methods.mint(amount).send({ from: this.accounts[0] });
-    log.log("Minted result: ");
-    log.log(errorCode);
+    return cToken.instance.methods.mint(amount).send({ from: this.accounts[0] });
   };
 
-  async redeemCEth(amount) {
-    const errorCode = await this.cETH.instance.methods.redeemUnderlying(amount).send({ from: this.accounts[0] });
-    log.log("Redeem result: ");
-    log.log(errorCode);
+  redeemCEth(amount) {
+    return this.cETH.instance.methods.redeemUnderlying(amount).send({ from: this.accounts[0] });
   };
 
-  async redeemCToken(cToken, amount) {
-    const errorCode = await cToken.instance.methods.redeemUnderlying(amount).send({ from: this.accounts[0] });
-    log.log("Redeem result: ");
-    log.log(errorCode);
+  redeemCToken(cToken, amount) {
+    return cToken.instance.methods.redeemUnderlying(amount).send({ from: this.accounts[0] });
   };
 
   async balanceOfCEth() {
@@ -105,46 +96,41 @@ export default class SDK {
     const rate = await this.cETH.instance.methods.supplyRatePerBlock().call();
     log.log("supply rate of eth");
     log.log(rate);
+    return rate;
   }
 
   async supplyRateCToken(cToken) {
     const rate = await cToken.instance.methods.supplyRatePerBlock().call();
     log.log("supply rate of eth");
     log.log(rate);
+    return rate;
   }
 
-  async invest(tokenName, amount) {
+  invest(tokenName, amount) {
     if (tokenName === "ETH") {
-      log.log(await this.balanceOfCEth());
+      log.log( this.balanceOfCEth());
       log.log("Amount for minting is " + amount);
-      await this.mintCEth(amount);
-      log.log(await this.balanceOfCEth());
+      return this.mintCEth(amount);
     }
     else{
       let token = this.cERC20.find((cERC20 => {
         return (cERC20.name === tokenName);
       }));
-      await this.mintCToken(token);
-      await this.balanceOfCToken(token);
+      return this.mintCToken(token);
     }
-    alert("Investment Successfull");
   }
-
-  async withdraw(tokenName, amount) {
+  
+   withdraw(tokenName, amount) {
     if (tokenName === "ETH") {
-      log.log(await this.balanceOfCEth());
       log.log("Amount for redeeming is " + amount);
-      await this.redeemCEth(amount);
-      await this.balanceOfCEth();
+      return this.redeemCEth(amount);
     }
     else{
       let token = this.cERC20.find((cERC20 => {
         return (cERC20.name === tokenName);
       }));
-      await this.redeemCToken(token);
-      await this.balanceOfCToken(token);
+      return this.redeemCToken(token);
     }
-    alert("Withdraw Successfull");
   }
 
   async getBalance(tokenName) {
