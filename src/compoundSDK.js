@@ -32,10 +32,15 @@ export default class SDK {
     this.cERC20.forEach(object => {
       object.instance = new this.web3.eth.Contract(cTokenAbi, object.address);
     });
+    this.ERC20 = this.network.ERC20;
+    this.ERC20.forEach(object => {
+      object.instance = new this.web3.eth.Contract(cTokenAbi, object.address);
+    });
 
     this.cTokenAddresses = this.cERC20.map(object => {
       return object.address;
     });
+    
     this.cETH = this.network.cETH;
     this.cETH.instance = new this.web3.eth.Contract(cETHAbi, this.cETH.address);
     this.comptroller = this.network.comptroller;
@@ -119,7 +124,7 @@ export default class SDK {
       return this.mintCToken(token);
     }
   }
-  
+
    withdraw(tokenName, amount) {
     if (tokenName === "ETH") {
       log.log("Amount for redeeming is " + amount);
@@ -133,7 +138,7 @@ export default class SDK {
     }
   }
 
-  async getBalance(tokenName) {
+  async getInvestBalance(tokenName) {
     if (tokenName === "ETH") {
       const maxBalance = await this.cETH.instance.methods.balanceOfUnderlying(this.accounts[0]).call();
       return maxBalance;
@@ -146,4 +151,21 @@ export default class SDK {
       return maxBalance;
     }
   }
+
+  async getBalance(tokenName) {
+    if (tokenName === "ETH") {
+      const balance =  this.web3.eth.getBalance(this.accounts[0]);
+      return balance;
+    }
+    else{
+      console.log(this.ERC20);
+      let token = this.ERC20.find((ERC20 => {
+        return (ERC20.name === tokenName);
+      }));
+      console.log(token);
+      const Balance = await token.instance.methods.balanceOf(this.accounts[0]).call();
+      return Balance;
+    }
+  }
+
 }
