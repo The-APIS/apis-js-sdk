@@ -33,9 +33,7 @@ export default class SDK {
       object.instance = new this.web3.eth.Contract(cTokenAbi, object.address);
     });
     this.ERC20 = this.network.ERC20;
-    // this.ERC20.forEach(object => {
-    //   object.instance = new this.web3.eth.Contract(cTokenAbi, object.address);
-    // });
+   
     this.ERC20 = this.ERC20.map(object => ({
       ...object,
       instance: new this.web3.eth.Contract(cTokenAbi, object.address),
