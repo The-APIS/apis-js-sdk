@@ -32,10 +32,18 @@ export default class SDK {
     this.cERC20.forEach(object => {
       object.instance = new this.web3.eth.Contract(cTokenAbi, object.address);
     });
+    this.ERC20 = this.network.ERC20;
+   
+    this.ERC20 = this.ERC20.map(object => ({
+      ...object,
+      instance: new this.web3.eth.Contract(cTokenAbi, object.address),
+    }));
+
 
     this.cTokenAddresses = this.cERC20.map(object => {
       return object.address;
     });
+    
     this.cETH = this.network.cETH;
     this.cETH.instance = new this.web3.eth.Contract(cETHAbi, this.cETH.address);
     this.comptroller = this.network.comptroller;
@@ -57,35 +65,26 @@ export default class SDK {
     log.log("error code is: ");
     log.log(errorCode);
     const markets = await this.comptroller.instance.methods.getAssetsIn(this.accounts[0]).call();
-    //this.setState({marketAccounts:markets});
     log.log("market is ");
     log.log(markets);
   };
 
-  async mintCEth(amount) {
+  mintCEth(amount) {
 
-    const errorCode = await this.cETH.instance.methods.mint().send({ from: this.accounts[0], value: amount });
-    log.log("Minted result: ");
-    log.log(errorCode);
+    return this.cETH.instance.methods.mint().send({ from: this.accounts[0], value: amount });
   };
 
-  async mintCToken(cToken, amount) {
+   mintCToken(cToken, amount) {
     //approve before minting
-    const errorCode = await cToken.instance.methods.mint(amount).send({ from: this.accounts[0] });
-    log.log("Minted result: ");
-    log.log(errorCode);
+    return cToken.instance.methods.mint(amount).send({ from: this.accounts[0] });
   };
 
-  async redeemCEth(amount) {
-    const errorCode = await this.cETH.instance.methods.redeemUnderlying(amount).send({ from: this.accounts[0] });
-    log.log("Redeem result: ");
-    log.log(errorCode);
+  redeemCEth(amount) {
+    return this.cETH.instance.methods.redeemUnderlying(amount).send({ from: this.accounts[0] });
   };
 
-  async redeemCToken(cToken, amount) {
-    const errorCode = await cToken.instance.methods.redeemUnderlying(amount).send({ from: this.accounts[0] });
-    log.log("Redeem result: ");
-    log.log(errorCode);
+  redeemCToken(cToken, amount) {
+    return cToken.instance.methods.redeemUnderlying(amount).send({ from: this.accounts[0] });
   };
 
   async balanceOfCEth() {
@@ -105,49 +104,43 @@ export default class SDK {
     const rate = await this.cETH.instance.methods.supplyRatePerBlock().call();
     log.log("supply rate of eth");
     log.log(rate);
+    return rate;
   }
 
   async supplyRateCToken(cToken) {
     const rate = await cToken.instance.methods.supplyRatePerBlock().call();
     log.log("supply rate of eth");
     log.log(rate);
+    return rate;
   }
 
-  async invest(tokenName, amount) {
+  invest(tokenName, amount) {
     if (tokenName === "ETH") {
-      log.log(await this.balanceOfCEth());
       log.log("Amount for minting is " + amount);
-      await this.mintCEth(amount);
-      log.log(await this.balanceOfCEth());
+      return this.mintCEth(amount);
     }
     else{
       let token = this.cERC20.find((cERC20 => {
         return (cERC20.name === tokenName);
       }));
-      await this.mintCToken(token);
-      await this.balanceOfCToken(token);
+      return this.mintCToken(token);
     }
-    alert("Investment Successfull");
   }
 
-  async withdraw(tokenName, amount) {
+   withdraw(tokenName, amount) {
     if (tokenName === "ETH") {
-      log.log(await this.balanceOfCEth());
       log.log("Amount for redeeming is " + amount);
-      await this.redeemCEth(amount);
-      await this.balanceOfCEth();
+      return this.redeemCEth(amount);
     }
     else{
       let token = this.cERC20.find((cERC20 => {
         return (cERC20.name === tokenName);
       }));
-      await this.redeemCToken(token);
-      await this.balanceOfCToken(token);
+      return this.redeemCToken(token);
     }
-    alert("Withdraw Successfull");
   }
 
-  async getMaxWithdraw(tokenName) {
+  async getInvestBalance(tokenName) {
     if (tokenName === "ETH") {
       const maxBalance = await this.cETH.instance.methods.balanceOfUnderlying(this.accounts[0]).call();
       return maxBalance;
@@ -160,4 +153,15 @@ export default class SDK {
       return maxBalance;
     }
   }
+
+  async getBalance(tokenName) {
+    if (tokenName === "ETH") {
+      return  this.web3.eth.getBalance(this.accounts[0]);
+    }
+    else{
+      let token = this.ERC20.find(ERC20 => ERC20.name === tokenName);
+      return token.instance.methods.balanceOf(this.accounts[0]).call();
+    }
+  }
+
 }
