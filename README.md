@@ -5,7 +5,7 @@ The official [APIS Foundation](https://dapis.tech) JavaScript SDK.
 ## TL;DR
 
 ```bash
-npm install --save @dapis/sdk
+npm install --save @theapis/sdk
 ```
 
 

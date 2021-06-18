@@ -1,5 +1,5 @@
 {
-  "name": "@dapis/sdk",
+  "name": "@theapis/sdk",
   "version": "0.3.2",
   "main": "src/index.js",
   "dependencies": {
