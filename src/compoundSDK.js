@@ -33,9 +33,14 @@ export default class SDK {
       object.instance = new this.web3.eth.Contract(cTokenAbi, object.address);
     });
     this.ERC20 = this.network.ERC20;
-    this.ERC20.forEach(object => {
-      object.instance = new this.web3.eth.Contract(cTokenAbi, object.address);
-    });
+    // this.ERC20.forEach(object => {
+    //   object.instance = new this.web3.eth.Contract(cTokenAbi, object.address);
+    // });
+    this.ERC20 = this.ERC20.map(object => ({
+      ...object,
+      instance: new this.web3.eth.Contract(cTokenAbi, object.address),
+    }));
+
 
     this.cTokenAddresses = this.cERC20.map(object => {
       return object.address;
@@ -113,7 +118,6 @@ export default class SDK {
 
   invest(tokenName, amount) {
     if (tokenName === "ETH") {
-      log.log( this.balanceOfCEth());
       log.log("Amount for minting is " + amount);
       return this.mintCEth(amount);
     }
@@ -154,17 +158,11 @@ export default class SDK {
 
   async getBalance(tokenName) {
     if (tokenName === "ETH") {
-      const balance =  this.web3.eth.getBalance(this.accounts[0]);
-      return balance;
+      return  this.web3.eth.getBalance(this.accounts[0]);
     }
     else{
-      console.log(this.ERC20);
-      let token = this.ERC20.find((ERC20 => {
-        return (ERC20.name === tokenName);
-      }));
-      console.log(token);
-      const Balance = await token.instance.methods.balanceOf(this.accounts[0]).call();
-      return Balance;
+      let token = this.ERC20.find(ERC20 => ERC20.name === tokenName);
+      return token.instance.methods.balanceOf(this.accounts[0]).call();
     }
   }
 
