@@ -164,4 +164,15 @@ export default class SDK {
     }
   }
 
+
+  async getDecimals(tokenName) {
+    if (tokenName === "ETH") {
+      return  18;
+    }
+    else{
+      let token = this.ERC20.find(ERC20 => ERC20.name === tokenName);
+      return token.instance.decimals().call();
+    }
+  }
+
 }
