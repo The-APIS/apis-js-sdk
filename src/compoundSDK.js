@@ -166,13 +166,17 @@ export default class SDK {
 
 
   async getDecimals(tokenName) {
-    if (tokenName === "ETH") {
-      return  18;
-    }
-    else{
-      let token = this.ERC20.find(ERC20 => ERC20.name === tokenName);
-      return token.instance.decimals().call();
-    }
+    return tokenName === 'ETH' ? 18 : (
+      this.ERC20.find(ERC20 => ERC20.name === tokenName)
+        .instance.methods.decimals().call()
+    )
+  }
+
+  async getAPY(tokenName) {
+    return (tokenName === 'ETH' ? (this.cETH.instance.methods.supplyRatePerBlock().call()) : (
+      this.ERC20.find(ERC20 => ERC20.name === tokenName)
+        .instance.methods.supplyRatePerBlock().call()
+    )) / 1e18;
   }
 
 }
