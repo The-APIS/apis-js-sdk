@@ -33,7 +33,7 @@ export default class SDK {
       object.instance = new this.web3.eth.Contract(cTokenAbi, object.address);
     });
     this.ERC20 = this.network.ERC20;
-   
+    console.log(this.ERC20);
     this.ERC20 = this.ERC20.map(object => ({
       ...object,
       instance: new this.web3.eth.Contract(cTokenAbi, object.address),
@@ -166,17 +166,20 @@ export default class SDK {
 
 
   async getDecimals(tokenName) {
-    return tokenName === 'ETH' ? 18 : (
+    return tokenName === 'ETH' ? 180 : (
       this.ERC20.find(ERC20 => ERC20.name === tokenName)
         .instance.methods.decimals().call()
     )
   }
 
   async getAPY(tokenName) {
-    return (tokenName === 'ETH' ? (this.cETH.instance.methods.supplyRatePerBlock().call()) : (
-      this.ERC20.find(ERC20 => ERC20.name === tokenName)
-        .instance.methods.supplyRatePerBlock().call()
-    )) / 1e18;
+    const ethMantissa = 1e18;
+    const blocksPerDay = 6570; // 13.15 seconds per block
+    const daysPerYear = 365;  
+    var rate = await (tokenName === 'ETH' ? this.cETH.instance.methods.supplyRatePerBlock().call() : 
+      this.cERC20.find(ERC20 => ERC20.name === tokenName)
+        .instance.methods.supplyRatePerBlock().call());
+    return (((Math.pow((rate / ethMantissa * blocksPerDay) + 1, daysPerYear))) - 1) * 100;
   }
 
 }
