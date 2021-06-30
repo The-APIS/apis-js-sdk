@@ -33,7 +33,6 @@ export default class SDK {
       object.instance = new this.web3.eth.Contract(cTokenAbi, object.address);
     });
     this.ERC20 = this.network.ERC20;
-    console.log(this.ERC20);
     this.ERC20 = this.ERC20.map(object => ({
       ...object,
       instance: new this.web3.eth.Contract(cTokenAbi, object.address),
@@ -166,7 +165,7 @@ export default class SDK {
 
 
   async getDecimals(tokenName) {
-    return tokenName === 'ETH' ? 180 : (
+    return tokenName === 'ETH' ? 18 : (
       this.ERC20.find(ERC20 => ERC20.name === tokenName)
         .instance.methods.decimals().call()
     )
