@@ -8,8 +8,8 @@ import log from 'loglevel';
 export default class SDK {
 
   async init(apiKey) {
-    if(apiKey===undefined || apiKey==="")
-    throw 'Visit https://app.theapis.io to create a [free] account and API token.';
+    if(!apiKey)
+    return console.error('Visit https://app.theapis.io to create a [free] account and API token.');
     // Get network provider and web3 instance.
     this.web3 = await getWeb3();
 
