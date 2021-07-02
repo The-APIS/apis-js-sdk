@@ -49,10 +49,10 @@ export default class SDK {
     this.comptroller = this.network.comptroller;
     this.comptroller.instance = new this.web3.eth.Contract(comptrollerAbi, this.comptroller.address);
     this.markets = await this.comptroller.instance.methods.getAssetsIn(this.accounts[0]).call();
-    if (this.markets.length < 8) {
-      this.enterMarket();
-      log.warn("market not fully loaded");
-    }
+    // if (this.markets.length < 8) {
+    //   this.enterMarket();
+    //   log.warn("market not fully loaded");
+    // }
     return this.markets;
 
   }
@@ -62,12 +62,17 @@ export default class SDK {
   }
   
   async enterMarket() {
-    const errorCode = await this.comptroller.instance.methods.enterMarkets(this.cTokenAddresses).send({ from: this.accounts[0] });
-    log.log("error code is: ");
-    log.log(errorCode);
-    const markets = await this.comptroller.instance.methods.getAssetsIn(this.accounts[0]).call();
-    log.log("market is ");
-    log.log(markets);
+    try{
+      const errorCode = await this.comptroller.instance.methods.enterMarkets(this.cTokenAddresses).send({ from: this.accounts[0] });
+      log.log("error code is: ");
+      log.log(errorCode);
+      const markets = await this.comptroller.instance.methods.getAssetsIn(this.accounts[0]).call();
+      log.log("market is ");
+      log.log(markets);
+    }catch(error){
+      console.error(error);
+    }
+    
   };
 
   mintCEth(amount) {
@@ -102,6 +107,10 @@ export default class SDK {
   }
 
   invest(tokenName, amount) {
+    if (this.markets.length < 8) {
+      this.enterMarket();
+      log.warn("market not fully loaded");
+    }
     if (tokenName === "ETH") {
       log.log("Amount for minting is " + amount);
       return this.mintCEth(amount);
@@ -115,6 +124,10 @@ export default class SDK {
   }
 
    withdraw(tokenName, amount) {
+    if (this.markets.length < 8) {
+      this.enterMarket();
+      log.warn("market not fully loaded");
+    }
     if (tokenName === "ETH") {
       log.log("Amount for redeeming is " + amount);
       return this.redeemCEth(amount);
