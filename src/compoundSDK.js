@@ -49,10 +49,6 @@ export default class SDK {
     this.comptroller = this.network.comptroller;
     this.comptroller.instance = new this.web3.eth.Contract(comptrollerAbi, this.comptroller.address);
     this.markets = await this.comptroller.instance.methods.getAssetsIn(this.accounts[0]).call();
-    // if (this.markets.length < 8) {
-    //   this.enterMarket();
-    //   log.warn("market not fully loaded");
-    // }
     return this.markets;
 
   }
