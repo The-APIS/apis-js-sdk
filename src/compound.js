@@ -5,7 +5,7 @@ import getWeb3 from "./web3/getWeb3";
 import Data from "./data.json";
 import log from 'loglevel';
 
-export default class SDK {
+export default class Compound {
 
   async init(apiKey) {
     if(!apiKey)
