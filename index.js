@@ -1,3 +1,3 @@
 import Compound from "./src/compound";
-
-export {Compound}
+import ERC20 from "./src/erc20";
+export {ERC20, Compound}
