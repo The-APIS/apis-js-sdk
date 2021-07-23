@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
+    "cypress": "^8.0.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "lodash": "^4.17.21",
@@ -27,6 +28,7 @@
     "build": "npm run clean && webpack",
     "watch": "webpack --watch",
     "start": "webpack serve",
+    "e2e": "cd e2e && cypress run",
     "lint:check": "eslint .",
     "lint": "prettier --write .",
     "test": "echo \"Error: no test specified\" && exit 1"
