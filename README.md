@@ -7,6 +7,85 @@ The official [APIS Foundation](https://dapis.tech) JavaScript SDK.
 ```bash
 npm install --save @theapis/sdk
 ```
+## Let's Get Started
+
+### Install
+
+
+```bash
+npm i
+```
+
+
+### Run
+
+```bash
+npm run dev
+```
+
+### Tutorial 
+
+```JavaScript
+import {Compound} from "@theapis/sdk";
+```
+
+#### Example - Implement DeFi Lending functions using APIS SDK
+
+```JavaScript
+import {Compound} from "@theapis/sdk";
+
+const sdk = new Compound();
+
+// Get ETH Balance and APY
+const decimal = await sdk.getDecimals("ETH");
+const balance = await sdk.getBalance("ETH") / 10 ** decimal;
+
+// Invest ETH into Compound protocol
+try{
+  sdk.invest("ETH",(balance*1e18).toString())
+  .on('error', function(error){ 
+    console.log("error: ")
+    console.log(error.message); })
+  .on('transactionHash', function(transactionHash){console.log("transaction hash: " +transactionHash); })
+  .on('receipt', function(receipt){
+      console.log(receipt); 
+  })
+  .on('confirmation', function(confirmationNumber, receipt){ 
+    if(confirmationNumber<3){
+      console.log("confirmed: "+ confirmationNumber);
+      console.log(receipt);
+    }
+  });
+}
+catch (error) {
+  console.error("Failed to withdraw:", error);
+}
+
+// Redeem Invested ETH along with Interest
+try {
+  const maxBalance = await sdk.getInvestBalance("ETH");
+  sdk.withdraw("ETH", (maxBalance * (10 ** decimals)).toString())
+    .on('error', function (error) {
+      console.log("error: ")
+      console.log(error.message);
+    })
+    .on('transactionHash', function (transactionHash) { console.log("transaction hash: " + transactionHash); })
+    .on('receipt', function (receipt) {
+      console.log(receipt);
+    })
+    .on('confirmation', function (confirmationNumber, receipt) {
+      if (confirmationNumber < 3) {
+        console.log("confirmed: " + confirmationNumber);
+        console.log(receipt);
+      }
+    });
+}
+catch (error) {
+  console.error("Failed to withdraw:", error);
+}
+
+```
+
 
 
 ## Develop
