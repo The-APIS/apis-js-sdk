@@ -7,6 +7,7 @@ import log from 'loglevel';
 
 export default class Compound {
 
+  
   async init(apiKey) {
     if(!apiKey)
     return console.error('Visit https://app.theapis.io to create a [free] account and API token.');
