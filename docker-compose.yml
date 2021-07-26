@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+
+  e2e:
+    # the Docker image to use from https://github.com/cypress-io/cypress-docker-images
+    image: "cypress/included:3.2.0"
+    # share the current folder as volume to avoid copying
+    working_dir: /e2e
+    volumes:
+      - ./e2e:/e2e
+
