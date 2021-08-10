@@ -30,6 +30,7 @@
     "build": "npm run clean && webpack",
     "watch": "webpack --watch",
     "start": "webpack serve",
+    "test:dist": "cd test/ && http-server -c -1",
     "e2e": "cd e2e && cypress run",
     "lint:check": "eslint .",
     "lint": "prettier --write .",
