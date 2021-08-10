@@ -169,6 +169,44 @@
         {
           "name": "WBTC2",
           "address": "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599"
+        },
+        {
+          "name": "SUSD",
+          "address": "0x57ab1ec28d129707052df4df418d58a2d46d5f51"
+        },
+        {
+          "name": "TUSD",
+          "address": "0x0000000000085d4780b73119b644ae5ecd22b376"
+        },
+        {
+          "name": "SUSD",
+          "address": "0x57ab1ec28d129707052df4df418d58a2d46d5f51"
+        }
+      ],
+      "yERC20": [
+        {
+          "name": "yDAI",
+          "address": "0xC2cB1040220768554cf699b0d863A3cd4324ce32"
+        },
+        {
+          "name": "ySUSD",
+          "address": "0xF61718057901F84C4eEC4339EF8f0D86D2B45600"
+        },
+        {
+          "name": "yTUSD",
+          "address": "0x73a052500105205d34Daf004eAb301916DA8190f"
+        },
+        {
+          "name": "yUSDC",
+          "address": "0x26EA744E5B887E5205727f55dFBE8685e3b21951"
+        },
+        {
+          "name": "yUSDT",
+          "address": "0xE6354ed5bC4b393a5Aad09f21c46E101e692d447"
+        },
+        {
+          "name": "yWBTC",
+          "address": "0x04Aa51bbcB46541455cCF1B8bef2ebc5d3787EC9"
         }
       ]
     }
