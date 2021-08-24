@@ -150,6 +150,22 @@ export default class ERC721 {
       .catch((err) => console.log(err))
   }
 
+  getCollection(options = {}){
+    //tokenAddress=0xbb29a07c3f932188cc074500e41bcc39f9ac6bf4&apiKey=81546f88-431d-4f33-9045-f28c8df7c735&chain=ethereum&network=rinkeby
+    return axios
+      .request({
+        url: `${this.host}/api/v1/tokens/0xb08efdD94a2b705a12272Ae985Bc293d75aB70c9/collection?${qs.stringify(options)}`,
+        method: 'GET',
+        headers: {
+          Accept: '*/*',
+        },
+      })
+      .then(function (response) {
+        console.log(response.data)
+      })
+      .catch((err) => console.log(err))
+  }
+  
   mint(options = {}) {
     //tokenAddress=0xb7dbaed4f382cbd400861469e5530118c4aa26e1&toAddress=0xA0C0Fc0a9F63e06c798591633587003ad75DdA2f&privateKey=475769e52afb2f8d56fe0e3cee75ea20379dfb7910e3aa56ce00ec409f6ecca7&id=2&apiKey=58fc282a-498f-4695-88ac-f694fa98df9d&chain=ethereum&network=rinkeby
     return axios

@@ -208,6 +208,36 @@
           "name": "yWBTC",
           "address": "0x04Aa51bbcB46541455cCF1B8bef2ebc5d3787EC9"
         }
+      ],
+      "yVaults": [
+        {
+          "name": "yvYFI",
+          "address": "0xE14d13d8B3b85aF791b2AADD661cDBd5E6097Db1"
+        },
+        {
+          "name": "yv1INCH",
+          "address": "0xB8C3B7A2A618C552C23B1E4701109a9E756Bab67"
+        },
+        {
+          "name": "yvWETH",
+          "address": "0xa9fE4601811213c340e850ea305481afF02f5b28"
+        },
+        {
+          "name": "yvUSDC",
+          "address": "0x5f18c75abdae578b483e5f43f12a39cf75b973a9"
+        },
+        {
+          "name": "yvDAI",
+          "address": "0x19d3364a399d251e894ac732651be8b0e4e85001"
+        },
+        {
+          "name": "yvWBTC",
+          "address": "0xcb550a6d4c8e3517a939bc79d0c7093eb7cf56b5"
+        },
+        {
+          "name": "yvUSDT",
+          "address": "0x7Da96a3891Add058AdA2E826306D812C638D87a7"
+        }
       ]
     }
   ]

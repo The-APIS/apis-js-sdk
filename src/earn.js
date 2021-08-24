@@ -5,7 +5,7 @@ import yTUSD from './abis/yearn/yTUSD.json'
 import yUSDC from './abis/yearn/yUSDC.json'
 import yUSDT from './abis/yearn/yUSDT.json'
 import cTokenAbi from './abis/cTokenAbi.json'
-import Data from './data.json'
+import Data from './addresses.json'
 import log from 'loglevel'
 
 export default class Earn {
