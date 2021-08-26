@@ -16,10 +16,6 @@ export default class ERC721 {
           Accept: '*/*',
         },
       })
-      .then(function (response) {
-        console.log(response.data)
-      })
-      .catch((err) => console.log(err))
   }
 
   getTokenId(options = {}) {
@@ -32,10 +28,6 @@ export default class ERC721 {
           Accept: '*/*',
         },
       })
-      .then(function (response) {
-        console.log(response.data)
-      })
-      .catch((err) => console.log(err))
   }
 
   getTokenOwner(options = {}) {
@@ -48,10 +40,6 @@ export default class ERC721 {
           Accept: '*/*',
         },
       })
-      .then(function (response) {
-        console.log(response.data)
-      })
-      .catch((err) => console.log(err))
   }
 
   getTokenName(options = {}) {
@@ -64,13 +52,9 @@ export default class ERC721 {
           Accept: '*/*',
         },
       })
-      .then(function (response) {
-        console.log(response.data)
-      })
-      .catch((err) => console.log(err))
   }
 
-  getTokenSymbol(options = {}) {
+  getTokenSymbol(contractAddress, options = {}) {
     // tokenAddress=0xde30ffcf679896f119dec2c0aa330638e1d97526&apiKey=58fc282a-498f-4695-88ac-f694fa98df9d&chain=ethereum&network=rinkeby
     return axios
       .request({
@@ -80,10 +64,6 @@ export default class ERC721 {
           Accept: '*/*',
         },
       })
-      .then(function (response) {
-        console.log(response.data)
-      })
-      .catch((err) => console.log(err))
   }
 
   getTotalSupply(options = {}) {
@@ -112,26 +92,18 @@ export default class ERC721 {
           Accept: '*/*',
         },
       })
-      .then(function (response) {
-        console.log(response.data)
-      })
-      .catch((err) => console.log(err))
   }
 
-  getTokenURI(options = {}) {
+  getTokenURI(contractAddress, options = {}) {
     // tokenAddress=0xde30ffcf679896f119dec2c0aa330638e1d97526&id=5&apiKey=58fc282a-498f-4695-88ac-f694fa98df9d&chain=ethereum&network=rinkeby
     return axios
       .request({
-        url: `${this.host}/api/v1/tokens/0xb08efdD94a2b705a12272Ae985Bc293d75aB70c9/uri?${qs.stringify(options)}`,
+        url: `${this.host}/api/v1/tokens/${contractAddress}/uri?${qs.stringify(options)}`,
         method: 'GET',
         headers: {
           Accept: '*/*',
         },
       })
-      .then(function (response) {
-        console.log(response.data)
-      })
-      .catch((err) => console.log(err))
   }
 
   getIdApproved(options = {}) {
@@ -144,26 +116,18 @@ export default class ERC721 {
           Accept: '*/*',
         },
       })
-      .then(function (response) {
-        console.log(response.data)
-      })
-      .catch((err) => console.log(err))
   }
 
-  getCollection(options = {}){
-    //tokenAddress=0xbb29a07c3f932188cc074500e41bcc39f9ac6bf4&apiKey=81546f88-431d-4f33-9045-f28c8df7c735&chain=ethereum&network=rinkeby
-    return axios
+  getCollection(contractAddress, options = {}){
+    //https://api.dev.theapis.io/api/v1/tokens/0xc8bA9a0e6431a08D3032d8d77C2227cD884605eE/collection?tokenAddress=0xbb29a07c3f932188cc074500e41bcc39f9ac6bf4&apiKey=81546f88-431d-4f33-9045-f28c8df7c735&chain=ethereum&network=rinkeby
+      return axios
       .request({
-        url: `${this.host}/api/v1/tokens/0xb08efdD94a2b705a12272Ae985Bc293d75aB70c9/collection?${qs.stringify(options)}`,
+        url: `${this.host}/api/v1/tokens/${contractAddress}/collection?${qs.stringify(options)}`,
         method: 'GET',
         headers: {
           Accept: '*/*',
         },
       })
-      .then(function (response) {
-        console.log(response.data)
-      })
-      .catch((err) => console.log(err))
   }
   
   mint(options = {}) {
@@ -176,10 +140,6 @@ export default class ERC721 {
           Accept: '*/*',
         },
       })
-      .then(function (response) {
-        console.log(response.data)
-      })
-      .catch((err) => console.log(err))
   }
 
   transfer(options = {}) {
@@ -193,10 +153,6 @@ export default class ERC721 {
           'Content-Type': 'application/json',
         },
       })
-      .then(function (response) {
-        console.log(response.data)
-      })
-      .catch((err) => console.log(err))
   }
 
   burn(options = {}) {
@@ -209,9 +165,5 @@ export default class ERC721 {
           Accept: '*/*',
         },
       })
-      .then(function (response) {
-        console.log(response.data)
-      })
-      .catch((err) => console.log(err))
   }
 }
