@@ -169,6 +169,74 @@
         {
           "name": "WBTC2",
           "address": "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599"
+        },
+        {
+          "name": "SUSD",
+          "address": "0x57ab1ec28d129707052df4df418d58a2d46d5f51"
+        },
+        {
+          "name": "TUSD",
+          "address": "0x0000000000085d4780b73119b644ae5ecd22b376"
+        },
+        {
+          "name": "SUSD",
+          "address": "0x57ab1ec28d129707052df4df418d58a2d46d5f51"
+        }
+      ],
+      "yERC20": [
+        {
+          "name": "yDAI",
+          "address": "0xC2cB1040220768554cf699b0d863A3cd4324ce32"
+        },
+        {
+          "name": "ySUSD",
+          "address": "0xF61718057901F84C4eEC4339EF8f0D86D2B45600"
+        },
+        {
+          "name": "yTUSD",
+          "address": "0x73a052500105205d34Daf004eAb301916DA8190f"
+        },
+        {
+          "name": "yUSDC",
+          "address": "0x26EA744E5B887E5205727f55dFBE8685e3b21951"
+        },
+        {
+          "name": "yUSDT",
+          "address": "0xE6354ed5bC4b393a5Aad09f21c46E101e692d447"
+        },
+        {
+          "name": "yWBTC",
+          "address": "0x04Aa51bbcB46541455cCF1B8bef2ebc5d3787EC9"
+        }
+      ],
+      "yVaults": [
+        {
+          "name": "yvYFI",
+          "address": "0xE14d13d8B3b85aF791b2AADD661cDBd5E6097Db1"
+        },
+        {
+          "name": "yv1INCH",
+          "address": "0xB8C3B7A2A618C552C23B1E4701109a9E756Bab67"
+        },
+        {
+          "name": "yvWETH",
+          "address": "0xa9fE4601811213c340e850ea305481afF02f5b28"
+        },
+        {
+          "name": "yvUSDC",
+          "address": "0x5f18c75abdae578b483e5f43f12a39cf75b973a9"
+        },
+        {
+          "name": "yvDAI",
+          "address": "0x19d3364a399d251e894ac732651be8b0e4e85001"
+        },
+        {
+          "name": "yvWBTC",
+          "address": "0xcb550a6d4c8e3517a939bc79d0c7093eb7cf56b5"
+        },
+        {
+          "name": "yvUSDT",
+          "address": "0x7Da96a3891Add058AdA2E826306D812C638D87a7"
         }
       ]
     }

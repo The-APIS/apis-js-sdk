@@ -2,7 +2,7 @@ import comptrollerAbi from './abis/comptrollerAbi.json'
 import cETHAbi from './abis/cETHAbi.json'
 import cTokenAbi from './abis/cTokenAbi.json'
 import getWeb3 from './web3/getWeb3'
-import Data from './data.json'
+import Data from './addresses.json'
 import log from 'loglevel'
 
 export default class Compound {
