@@ -32,6 +32,7 @@ export default class Earn {
     log.log('fetching network successful: ')
     log.log(this.network)
     this.yERC20 = this.network.yERC20
+    
     this.yERC20.forEach((object) => {
       // object.instance = new this.web3.eth.Contract(yDAI, object.address)
       switch (object.name) {
