@@ -1,21 +1,15 @@
 import axios from 'axios'
 import qs from 'qs'
+import apiConstants from "./apiConstants"
+import apiHelper from './apiHelper'
 
 export default class ERC721 {
   constructor(host) {
     this.host = host || 'https://api.theapis.io'
   }
 
-  getBalance(options = {}) {
-    //tokenAddress=0xde30ffcf679896f119dec2c0aa330638e1d97526&type=erc721&apiKey=58fc282a-498f-4695-88ac-f694fa98df9d&chain=ethereum&network=rinkeby
-    return axios
-      .request({
-        url: `${this.host}/api/v1/tokens/0x6A3Cd6a4f7288a43921Ff88796cb75D9e36A8b9A/balance?${qs.stringify(options)}`,
-        method: 'GET',
-        headers: {
-          Accept: '*/*',
-        },
-      })
+  getBalance(walletAddress, options = {}) {
+    return apiHelper.invokeGetter(apiConstants.KEYS.BALANCE_URL, walletAddress, options)
   }
 
   getTokenId(options = {}) {
