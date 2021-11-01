@@ -5,6 +5,8 @@ import Data from './addresses.json'
 import log from 'loglevel'
 
 export default class Vault {
+
+  
   async init() {
     // Get network provider and web3 instance.
     this.web3 = await getWeb3()
@@ -40,6 +42,10 @@ export default class Vault {
     }))
   }
 
+  getSupportedVaults() {
+    return this.yVaults
+  }
+
   async getInvestBalance(tokenName) {
     return this.yVaults
       .find((object) => object.name === tokenName)
@@ -56,15 +62,26 @@ export default class Vault {
     return balanceShares * price
   }
 
-  // amount of ERC20
-  async invest(tokenName, amount) {
+  async getPricePerShare(tokenName){
     let yVault = this.yVaults.find((yVault) => {
       return yVault.name === tokenName
     })
+    let price = await yVault.instance.methods.pricePerShare().call()
+    return price
+  }
+
+  // amount of ERC20
+  async invest(tokenName, amount) {
+    console.log("entered invest")
+    let yVault = this.yVaults.find((yVault) => {
+      return yVault.name === tokenName
+    })
+    console.log(yVault)
     let token = this.ERC20.find((ERC20) => {
       // remove 'yv' from token name to get erc20 token name
       return ERC20.name === tokenName.substr(2)
     })
+    console.log(token)
     await token.instance.methods.approve(yVault.address, amount).send({ from: this.accounts[0] })
     return yVault.instance.methods.deposit(amount).send({ from: this.accounts[0] })
   }

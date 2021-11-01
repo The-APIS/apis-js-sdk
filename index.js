@@ -3,5 +3,6 @@ import ERC20 from './src/erc20'
 import ERC721 from './src/erc721'
 import ERC1155 from './src/erc1155'
 import Earn from './src/earn'
+import Vault from './src/vault'
 
-export { ERC20, ERC721, ERC1155, Compound, Earn }
+export { ERC20, ERC721, ERC1155, Compound, Earn, Vault }
