@@ -224,7 +224,7 @@
         },
         {
           "name": "yvWETH",
-          "address": "0xa9fE4601811213c340e850ea305481afF02f5b28"
+          "address": "0xa258C4606Ca8206D8aA700cE2143D7db854D168c"
         },
         {
           "name": "yvUSDC",
@@ -232,15 +232,47 @@
         },
         {
           "name": "yvDAI",
-          "address": "0x19d3364a399d251e894ac732651be8b0e4e85001"
+          "address": "0xdA816459F1AB5631232FE5e97a05BBBb94970c95"
         },
         {
           "name": "yvWBTC",
-          "address": "0xcb550a6d4c8e3517a939bc79d0c7093eb7cf56b5"
+          "address": "0xA696a63cc78DfFa1a63E9E50587C197387FF6C7E"
         },
         {
           "name": "yvUSDT",
           "address": "0x7Da96a3891Add058AdA2E826306D812C638D87a7"
+        },
+        {
+          "name": "yvTUSD",
+          "address": "0xFD0877d9095789cAF24c98F7CCe092fa8E120775"
+        },
+        {
+          "name": "yvsUSD",
+          "address": "0xa5cA62D95D24A4a350983D5B8ac4EB8638887396"
+        },
+        {
+          "name": "yvRAI",
+          "address": "0x873fB544277FD7b977B196a826459a69E27eA4ea"
+        },
+        {
+          "name": "yvLINK",
+          "address": "0x671a912C10bba0CFA74Cfc2d6Fba9BA1ed9530B2"
+        },
+        {
+          "name": "yvSNX",
+          "address": "0xF29AE508698bDeF169B89834F76704C3B205aedf"
+        },
+        {
+          "name": "yvAAVE",
+          "address": "0xd9788f3931Ede4D5018184E198699dC6d66C1915"
+        },
+        {
+          "name": "yvSUSHI",
+          "address": "0x6d765CbE5bC922694afE112C140b8878b9FB0390"
+        },
+        {
+          "name": "yvUNI",
+          "address": "0xFBEB78a723b8087fD2ea7Ef1afEc93d35E8Bed42"
         }
       ]
     }

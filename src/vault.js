@@ -33,8 +33,8 @@ export default class Vault {
     this.yVaults.forEach((object) => {
       object.instance = new this.web3.eth.Contract(yVaultAbi, object.address)
     })
-    console.log('yVaults initialised')
-    console.log(this.yVaults)
+    log.log('yVaults initialised')
+    log.log(this.yVaults)
     this.ERC20 = this.network.ERC20
     this.ERC20 = this.ERC20.map((object) => ({
       ...object,
@@ -72,16 +72,16 @@ export default class Vault {
 
   // amount of ERC20
   async invest(tokenName, amount) {
-    console.log("entered invest")
+    log.log("entered invest")
     let yVault = this.yVaults.find((yVault) => {
       return yVault.name === tokenName
     })
-    console.log(yVault)
+    log.log(yVault)
     let token = this.ERC20.find((ERC20) => {
       // remove 'yv' from token name to get erc20 token name
       return ERC20.name === tokenName.substr(2)
     })
-    console.log(token)
+    log.log(token)
     await token.instance.methods.approve(yVault.address, amount).send({ from: this.accounts[0] })
     return yVault.instance.methods.deposit(amount).send({ from: this.accounts[0] })
   }
